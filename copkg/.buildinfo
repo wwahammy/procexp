@@ -1,0 +1,36 @@
+@import "version.inc";
+
+#product-info  {
+	product-name: "Process Explorer";
+	version: "${package-version}";
+	original-source-location: "";
+	original-source-website: "http://live.sysinternals.com";
+	license: "eula";
+	packager: "Rafael Rivera <rafael@withinwindows.com>";
+}
+
+package {
+    build-command : @"
+        autopackage copkg\procexp.autopkg || goto failed
+        rem ptk update-version
+    ";
+    
+    clean-command: @"
+        erase copkg\*.wixpdb
+    ";
+}
+
+update-version {
+    default : false;
+    build-command : @"
+        REM auto-increment version.inc file...
+        
+        cd COPKG
+        setlocal EnableDelayedExpansion
+        for /F ""tokens=4,5,6,7  delims=.; "" %%v in (version.inc) do (
+            set /a build=%%y + 1
+            set VERSTRING=#define { package-version: %%v.%%w.%%x.!build!; }
+        )
+        echo !VERSTRING! > version.inc
+    ";
+}

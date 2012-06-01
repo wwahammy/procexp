@@ -1,0 +1,60 @@
+@import "version.inc";
+@import "compat.inc";
+@import "outercurve.inc";
+
+package {
+    name: "procexp";
+    version: "${package-version}";
+    arch : "any";
+    display-name: "Sysinternals Process Explorer";
+}
+
+metadata {
+    summary: "Windows Sysinternals' Process Monitor";
+    description: @"Process Monitor is an advanced monitoring tool for Windows
+    that shows real-time file system, Registry and process/thread activity.
+    It combines the features of two legacy Sysinternals utilities, Filemon and
+    Regmon, and adds an extensive list of enhancements including rich and
+    non-destructive filtering, comprehensive event properties such session IDs
+    and user names, reliable process information, full thread stacks with
+    integrated symbol support for each operation, simultaneous logging to a
+    file, and much more. Its uniquely powerful features will make Process Monitor
+    a core utility in your system troubleshooting and malware hunting toolkit.";
+    
+    author-version : "v15.13";
+    bug-tracker: "http://forum.sysinternals.com/process-explorer_forum2.html";
+    stability : "0";
+    licenses : {
+        eula
+    };
+}
+
+files[readme] {
+    root: @"..\";
+  
+    include: {
+        "readme.txt"
+    };
+    
+    trim-path: all;
+};
+
+faux-pax {
+    downloads : {
+       "procexp.chm" = "http://live.sysinternals.com/procexp.chm",
+       "procexp.exe" = "http://live.sysinternals.com/procexp.exe",
+    };
+    
+    // install: { commmand = "", parameters = "" };
+    // remove: { commmand = "", parameters = "" };
+    
+    include : {
+        readme
+    };
+}
+
+package-composition {
+    shortcut : { 
+      @"${bin}\procexp" = @"${packagedir}\procexp.exe";
+    };
+}
