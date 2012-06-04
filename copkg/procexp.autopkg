@@ -54,7 +54,11 @@ faux-pax {
 }
 
 package-composition {
+    symlinks: {
+        @"${bin}\procexp.exe" = @"${packagedir}\procexp.exe"
+    };
+
     shortcut : { 
-      @"${bin}\procexp" = @"${packagedir}\procexp.exe";
+      @"${apps}\start menu\SysInternals\procexp.lnk" = @"${packagedir}\procexp.exe";
     };
 }
